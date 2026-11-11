@@ -1,33 +1,15 @@
 # Get scores from ESPN API
 
 import requests
-# import json
 from jsonpath_ng import parse
-
-# Event class for game info
-class Game:
-    def __init__(self, event: str, away_team: str, home_team: str, away_score: str, home_score: str):
-        self.event = event
-        self.away_team = away_team
-        self.home_team = home_team
-        self.away_score = away_score
-        self.home_score = home_score
-
-    # Update game score
-    def update_score(self, away_score: str, home_score: str):
-        self.away_score = away_score
-        self.home_score = home_score
-
-    # Display game score
-    def display_game_score(self):
-        print(f"{self.away_team}: {self.away_score}\n{self.home_team}: {self.home_score}\n")
+from game import Game
 
 # Parse scoreboard and return a list of events using event class
 def parse_scoreboard(json_string: str) -> list:
 
     # Define lists
     games = []
-    events = []
+    matchups = []
     away_team = []
     home_team = []
     away_score = []
@@ -37,7 +19,7 @@ def parse_scoreboard(json_string: str) -> list:
     jsonpath_expression = parse('$.events[*].name')
 
     for match in jsonpath_expression.find(json_string):
-        events.append(match.value)
+        matchups.append(match.value)
 
     # Get teams
     # Away = competitors[0]
@@ -68,8 +50,8 @@ def parse_scoreboard(json_string: str) -> list:
         away_score.append(match.value)
     
     # Display for debugging purposes
-    for i in range(len(events)):
-       games.append(Game(events[i], away_team[i], home_team[i], away_score[i], home_score[i]))
+    for i in range(len(matchups)):
+       games.append(Game(matchups[i], away_team[i], home_team[i], away_score[i], home_score[i]))
 
     return games
 
