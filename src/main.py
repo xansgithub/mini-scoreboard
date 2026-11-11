@@ -5,6 +5,8 @@ from jsonpath_ng import parse
 from game import Game
 
 # Parse scoreboard and return a list of events using event class
+# TODO: clean up this function. It's ugly!
+
 def parse_scoreboard(json_string: str) -> list:
 
     # Define lists
@@ -22,8 +24,8 @@ def parse_scoreboard(json_string: str) -> list:
         matchups.append(match.value)
 
     # Get teams
-    # Away = competitors[0]
-    # Home = competitors[1]
+    # Home = competitors[0]
+    # Away = competitors[1]
 
     jsonpath_expression = parse(f'$.events[*].competitions[0].competitors[0].team.abbreviation')
 
@@ -36,8 +38,8 @@ def parse_scoreboard(json_string: str) -> list:
         away_team.append(match.value)
 
     # Get scores
-    # Away = scores[0]
-    # Home = scores[1]
+    # Home = scores[0]
+    # Away = scores[1]
 
     jsonpath_expression = parse(f'$.events[*].competitions[0].competitors[0].score')
 
@@ -49,11 +51,13 @@ def parse_scoreboard(json_string: str) -> list:
     for match in jsonpath_expression.find(json_string):
         away_score.append(match.value)
     
-    # Display for debugging purposes
+    # Instantiate new Game using values retrieved above
     for i in range(len(matchups)):
        games.append(Game(matchups[i], away_team[i], home_team[i], away_score[i], home_score[i]))
 
     return games
+
+# ---------------------------------------- #
 
 # ---------------------------------------- #
 
