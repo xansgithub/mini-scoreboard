@@ -20,7 +20,7 @@ class Game:
 
     # Display game score
     def display_game_score(self):
-        print(f"{self.away_team}: {self.away_score}\n{self.home_team}: {self.home_score}")
+        print(f"{self.away_team}: {self.away_score}\n{self.home_team}: {self.home_score}\n")
 
 # Parse scoreboard and return a list of events using event class
 def parse_scoreboard(json_string: str) -> list:
@@ -73,20 +73,25 @@ def parse_scoreboard(json_string: str) -> list:
 
     return games
 
-def get_events(url: str):
+# ---------------------------------------- #
+
+def main():
+    # API endpoint
+    # Put this in an environment variable instead? Probably doesn't matter
+    url = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard"
 
     # Send request
     response = requests.get(url)
 
+    # Do stuff
+    # This kind of sucks. Try/except?
     if response.status_code == 200:
         data = response.json()
-        parse_scoreboard(data)
+        games = parse_scoreboard(data)
+        for game in games:
+            game.display_game_score()
     else:
         print(f"Failed. Status code: {response.status_code}")
 
-   #  return game_scores
-
-# API endpoint
-url = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard"
-
-get_events(url)
+if __name__ == "__main__":
+    main()
