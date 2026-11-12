@@ -1,0 +1,16 @@
+<h3>Games</h3>
+
+<ul>
+    {% for matchup in matchups %}
+        <p>{{ matchup }}</p>
+    {% endfor %}
+</ul>
+
+<img src="{{ url_for('static', filename='NYJ.png') }}"
+    class="image"/>
+
+<style>
+    .image {
+        width: 50px;
+    }
+</style>
