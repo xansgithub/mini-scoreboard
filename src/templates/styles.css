@@ -1,0 +1,28 @@
+/* The outer container (optional, hides scrollbar if desired) */
+.horizontal-scroll-container {
+    width: 100%;
+    overflow-x: auto; /* Enables horizontal scrolling */
+    overflow-y: hidden; /* Prevents vertical scrolling */
+    white-space: nowrap; /* Prevents items from wrapping to the next line */
+    padding: 10px 0;
+}
+
+/* The list itself */
+.horizontal-scroll-list {
+    display: flex; /* Aligns items in a row */
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+/* The individual items inside the list */
+.scroll-item {
+    display: inline-block; /* Ensures items respect width/flex constraints */
+    flex: 0 0 auto; /* Prevents items from shrinking or stretching */
+    width: 200px; /* Set your desired item width */
+    margin-right: 15px; /* Spacing between items */
+    background-color: #f0f0f0; /* Example styling */
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}

@@ -1,16 +1,61 @@
-<h3>Games</h3>
-
-<ul>
+<div class="ticker" id="ticker">
     {% for matchup in matchups %}
-        <p>{{ matchup }}</p>
+        <div class="matchup">{{ matchup }}</div>
     {% endfor %}
-</ul>
-
-<img src="{{ url_for('static', filename='NYJ.png') }}"
-    class="image"/>
+</div>
 
 <style>
-    .image {
-        width: 50px;
+    .ticker {
+        width: 600px;
+        height: 480px;
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        border: 1px solid #444;
+    }
+
+    .ticker::-webkit-scrollbar {
+        display: none;
+    }
+
+    .matchup {
+        flex: 0 0 100%;
+        scroll-snap-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        padding: 0 1rem;
+        box-sizing: border-box;
     }
 </style>
+
+<script>
+    const ticker = document.getElementById("ticker");
+    const INTERVAL_MS = 10000;
+    let paused = false;
+
+    function advance() {
+        if (paused) return;
+        const count = ticker.children.length;
+        if (count < 2) return;
+
+        const width = ticker.clientWidth;
+        const current = Math.round(ticker.scrollLeft / width);
+        const next = (current + 1) % count;
+
+        ticker.scrollTo({ left: next * width, behavior: "smooth" });
+    }
+
+    setInterval(advance, INTERVAL_MS);
+
+    // Pause while the user is hovering or touching so they can read or scroll manually
+    ticker.addEventListener("mouseenter", () => (paused = true));
+    ticker.addEventListener("mouseleave", () => (paused = false));
+    ticker.addEventListener("touchstart", () => (paused = true), { passive: true });
+    ticker.addEventListener("touchend", () => (paused = false));
+</script>
