@@ -7,22 +7,36 @@ A lightweight Flask app that pulls live NFL scores from ESPN's API and displays 
 - Render games with Flask and Jinja templates
 - Small display window that auto-scrolls and snaps to each matchup
 - Pauses auto-scroll on hover/touch so you can read or scroll manually
+- Dockerized
 
 # Tech Stack
 - Python3
 - Flask
 - Requests (ESPN API calls)
 - HTML / CSS / JavaScript
+- Docker
 
 # Notes
 - Uses ESPN's public, unofficial API, which is undocumented and may change without notice
 - Intended for personal, non-commercial use
 
-# Instructions
+# Docker Instructions
+1. Pull code
+2. Install Docker
+3. Run the following commands:
 ```
 docker build -t mini-scoreboard -f ./Dockerfile.dockerfile .
 docker run -d -p 5000:5000 mini-scoreboard
 ```
+3. In a browser, navigate to http://localhost:5000
+
+# Non-Docker Instructions
+1. Pull code
+2. In working directory, run the following command:
+```
+python -m flask --app .\src\main.py run
+```
+3. In a browser, navigate to http://localhost:5000
 
 # Future Improvements
 - Auto-refresh scores without reloading the program. It is currently designed otherwise to prevent excessive API requests
