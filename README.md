@@ -1,5 +1,5 @@
 # mini-scoreboard
-A lightweight Flask app that pulls live NFL scores from ESPN's API and displays them on an auto-scrolling web page. Built as a homelab project to practice REST API integration, Python web development, and self-hosting.
+A lightweight Flask app that pulls live NFL scores from ESPN's API and displays them on an auto-scrolling web page. Built as a homelab project to practice Docker, REST API integration, Python web development, and self-hosting.
 
 # Features
 - Fetches current NFL scoreboard data from ESPN API
